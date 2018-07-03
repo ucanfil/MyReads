@@ -4,14 +4,20 @@ import React, { Component } from "react";
 class Books extends Component {
 
   render() {
+    const showingBooks = this.props.books.filter(c => c.shelf === this.props.shelf)
+
     return <div className="bookshelf-books">
         <ol className="books-grid">
-          {this.props.books.map(book => <li key={book.id}>
+          {showingBooks.map(book => <li key={book.id}>
               <div className="book">
                 <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }} />
                   <div className="book-shelf-changer">
-                    <select onChange={event => this.props.onChangeShelf(book, event.target.value)}>
+                    <select
+                      onChange={event => {
+                      this.props.onChangeShelf(book, event.target.value);
+                    }}
+                      defaultValue={this.props.shelf}>
                       <option value="move" disabled>
                         Move to...
                       </option>
