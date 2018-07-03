@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Books from './Books'
+import BookShelf from './BookShelf'
 
 class BooksApp extends React.Component {
   state = {
@@ -64,27 +65,28 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
+                <BookShelf
+                  title="Currently Reading">
                   <Books
-                    books={this.state.books.filter(c => c.shelf === "currentlyReading")}
+                    books={this.state.books}
                     onChangeShelf={this.changeShelf}
+                    shelf="currentlyReading"
                   />
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
+                </BookShelf>
+                <BookShelf title="Want to Read">
                   <Books
                     books={this.state.books.filter(c => c.shelf === "wantToRead")}
                     onChangeShelf={this.changeShelf}
+                    shelf="wantToRead"
                   />
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
+                </BookShelf>
+                <BookShelf title="Read">
                   <Books
                     books={this.state.books.filter(c => c.shelf === 'read')}
                     onChangeShelf={this.changeShelf}
+                    shelf="read"
                   />
-                </div>
+                </BookShelf>
               </div>
             </div>
             <div className="open-search">
