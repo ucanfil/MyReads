@@ -17,7 +17,7 @@ class Books extends Component {
                       onChange={event => {
                       this.props.onChangeShelf(book, event.target.value);
                     }}
-                      defaultValue={this.props.shelf}>
+                      defaultValue={book.shelf}>
                       <option value="move" disabled>
                         Move to...
                       </option>
@@ -42,7 +42,6 @@ class Books extends Component {
 
 Books.propTypes = {
   books: PropTypes.array.isRequired,
-  shelf: PropTypes.string.isRequired,
   onChangeShelf: PropTypes.func.isRequired
 }
 
