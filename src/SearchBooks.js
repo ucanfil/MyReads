@@ -12,7 +12,18 @@ class SearchBooks extends Component {
   }
 
   render() {
-    console.log(this.state.query)
+    console.log(this.props.books, this.props.searchResults)
+    if (this.props.searchResults && this.props.searchResults.length > 0) {
+      for (let i = 0; i < this.props.searchResults.length; i++) {
+        for (let j = 0; j < this.props.books.length; j++) {
+          if (this.props.searchResults[i].id === this.props.books[j].id) {
+            this.props.searchResults[i].shelf = this.props.books[j].shelf
+          }
+        }
+      }
+    }
+
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -20,7 +31,11 @@ class SearchBooks extends Component {
             Close
           </Link>
           <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={event => {
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={this.state.query}
+              onChange={event => {
                 this.updateQuery(event.target.value);
                 this.props.onSearch(this.state.query);
               }} />
@@ -28,7 +43,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.books && this.props.books.length > 0 && this.props.books.map(
+            {this.props.searchResults && this.props.searchResults.length > 0 && this.props.searchResults.map(
                 book => (
                   <li key={book.id}>
                     <div className="book">
@@ -46,7 +61,7 @@ class SearchBooks extends Component {
                             onChange={event => {
                               this.props.onChangeShelf(book, event.target.value)
                             }}
-                            defaultValue={book.shelf}>
+                            defaultValue={book.shelf === undefined ? 'none' : book.shelf}>
                             <option value="move" disabled>
                               Move to...
                             </option>
