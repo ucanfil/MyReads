@@ -25,6 +25,8 @@ class BooksApp extends React.Component {
       books: state.books.map(c => {
         if (c.id === book.id) {
           c.shelf = shelf
+        } else if (book.id !== c.id) {
+          state.books.push(book)
         }
         return c
       })
@@ -38,14 +40,14 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    console.log(this.state.searchResults, this.state.books);
     return (
       <div className="app">
         <Route
           path="/add"
           render={() => (
             <SearchBooks
-              books={this.state.searchResults}
+              searchResults={this.state.searchResults}
+              books={this.state.books}
               onChangeShelf={this.changeShelf}
               onSearch={this.search}
             />
