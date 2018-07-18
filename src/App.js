@@ -21,18 +21,6 @@ class BooksApp extends React.Component {
 
   changeShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-    this.setState(state => ({
-      books: state.books.map(c => {
-        if (c.id === book.id) {
-          c.shelf = shelf
-        }
-        return c
-      })
-    }))
-  }
-
-  addShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
     if (this.state.books.filter(c => c.id === book.id).length === 0) {
       book.shelf = shelf
       this.setState(state => ({
@@ -65,7 +53,7 @@ class BooksApp extends React.Component {
             <SearchBooks
               searchResults={this.state.searchResults}
               books={this.state.books}
-              onAddShelf={this.addShelf}
+              onChangeShelf={this.changeShelf}
               onSearch={this.search}
             />
           )}
