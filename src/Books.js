@@ -2,6 +2,10 @@ import React, { Component } from "react"
 import PropTypes from 'prop-types'
 
 class Books extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
+  }
 
   render() {
     const showingBooks = this.props.books.filter(c => c.shelf === this.props.shelf)
@@ -38,11 +42,6 @@ class Books extends Component {
         </ol>
       </div>;
   }
-}
-
-Books.propTypes = {
-  books: PropTypes.array.isRequired,
-  onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Books
