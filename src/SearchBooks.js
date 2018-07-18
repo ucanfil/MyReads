@@ -19,12 +19,14 @@ class SearchBooks extends Component {
   }
 
   render() {
-    console.log(this.props.books, this.props.searchResults)
-    if (this.props.searchResults && this.props.searchResults.length > 0) {
-      for (let i = 0; i < this.props.searchResults.length; i++) {
-        for (let j = 0; j < this.props.books.length; j++) {
-          if (this.props.searchResults[i].id === this.props.books[j].id) {
-            this.props.searchResults[i].shelf = this.props.books[j].shelf
+    const { searchResults, books, onSearch, onChangeShelf } = this.props
+    const { query } = this.state
+
+    if (searchResults && searchResults.length > 0) {
+      for (let i = 0; i < searchResults.length; i++) {
+        for (let j = 0; j < books.length; j++) {
+          if (searchResults[i].id === books[j].id) {
+            searchResults[i].shelf = books[j].shelf
           }
         }
       }
@@ -40,16 +42,16 @@ class SearchBooks extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
+              value={query}
               onChange={event => {
                 this.updateQuery(event.target.value);
-                this.props.onSearch(this.state.query);
+                onSearch(query);
               }} />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.searchResults && this.props.searchResults.length > 0 && this.state.query && this.props.searchResults.map(
+            {searchResults && searchResults.length > 0 && query && searchResults.map(
                 book => (
                   <li key={book.id}>
                     <div className="book">
@@ -65,7 +67,7 @@ class SearchBooks extends Component {
                         <div className="book-shelf-changer">
                           <select
                             onChange={event => {
-                              this.props.onChangeShelf(book, event.target.value)
+                              onChangeShelf(book, event.target.value)
                             }}
                             defaultValue={book.shelf === undefined ? 'none' : book.shelf}>
                             <option value="move" disabled>
