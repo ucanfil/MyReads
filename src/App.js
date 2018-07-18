@@ -31,6 +31,13 @@ class BooksApp extends React.Component {
     }))
   }
 
+  addShelf = (book, shelf) => {
+    book.shelf = shelf
+    this.setState(state => ({
+      books: state.books.concat(book)
+    }))
+  }
+
   search = query => {
     BooksAPI.search(query).then(result =>
       this.setState({ searchResults: result })
@@ -46,7 +53,7 @@ class BooksApp extends React.Component {
             <SearchBooks
               searchResults={this.state.searchResults}
               books={this.state.books}
-              onChangeShelf={this.changeShelf}
+              onAddShelf={this.addShelf}
               onSearch={this.search}
             />
           )}

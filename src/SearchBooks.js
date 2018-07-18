@@ -59,7 +59,7 @@ class SearchBooks extends Component {
                         <div className="book-shelf-changer">
                           <select
                             onChange={event => {
-                              this.props.onChangeShelf(book, event.target.value)
+                              this.props.onAddShelf(book, event.target.value)
                             }}
                             defaultValue={book.shelf === undefined ? 'none' : book.shelf}>
                             <option value="move" disabled>
