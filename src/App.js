@@ -32,10 +32,22 @@ class BooksApp extends React.Component {
   }
 
   addShelf = (book, shelf) => {
-    book.shelf = shelf
-    this.setState(state => ({
-      books: state.books.concat(book)
-    }))
+    BooksAPI.update(book, shelf)
+    if (this.state.books.filter(c => c.id === book.id).length === 0) {
+      book.shelf = shelf
+      this.setState(state => ({
+        books: state.books.concat(book)
+      }))
+    } else if (this.state.books.filter(c => c.id === book.id).length > 0) {
+      this.setState(state => ({
+        books: state.books.map(d => {
+          if (d.id === book.id) {
+            d.shelf = shelf
+          }
+          return d
+        })
+      }))
+    }
   }
 
   search = query => {
