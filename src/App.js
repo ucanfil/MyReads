@@ -25,8 +25,6 @@ class BooksApp extends React.Component {
       books: state.books.map(c => {
         if (c.id === book.id) {
           c.shelf = shelf
-        } else if (book.id !== c.id) {
-          state.books.push(book)
         }
         return c
       })
